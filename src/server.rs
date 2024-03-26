@@ -1,6 +1,4 @@
-//! `ChatServer` is an actor. It maintains list of connection client session.
-//! And manages available rooms. Peers send messages to other peers in same
-//! room through `ChatServer`.
+
 use std::any::type_name;
 
 use std::{
@@ -19,7 +17,6 @@ use rand::{rngs::ThreadRng, Rng};
 #[rtype(result = "()")]
 pub struct Message(pub String);
 
-/// Message for chat server communications
 
 /// New chat session is created
 #[derive(Message)]
@@ -115,8 +112,7 @@ impl ChatServer {
 
 /// Make actor from `ChatServer`
 impl Actor for ChatServer {
-    /// We are going to use simple Context, we just need ability to communicate
-    /// with other actors.
+    
     type Context = Context<Self>;
 }
 
@@ -173,16 +169,7 @@ impl Handler<Disconnect> for ChatServer {
     }
 }
 
-/// Handler for Message message.
-// impl Handler<ClientMessage> for ChatServer {
-//     type Result = ();
 
-//     fn handle(&mut self, msg: ClientMessage, _: &mut Context<Self>) {
-//         self.private_chat(&msg.room, msg.msg.as_str(), msg.id);
-//     }
-// }
-
-/// Handler for Message message.
 impl Handler<ClientMessage> for ChatServer {
     type Result = ();
 
